@@ -3,7 +3,8 @@ clear, clc;
 warning off all;
 addpath(genpath('.')); 
 
-datasetPath = 'VisDrone2018-SOT-test-challenge\'; % the dataset path
+%datasetPath = 'VisDrone2018-SOT-test-challenge\'; % the dataset path
+datasetPath = '/data/VisDrone/VisDrone2018-SOT-train/'; % the dataset path
 trackers = configTrackers; % the set of trackers
 evalType = 'OPE'; % the evaluation type such as 'OPE','SRE','TRE'
 
@@ -43,7 +44,7 @@ for idxSeq = 1:length(seqs)
     img = imread(s.s_frames{1});
     [imgH, imgW, ~] = size(img);
     
-    rect_anno = dlmread([pathAnno '\' s.name '.txt']);
+    rect_anno = dlmread(fullfile(pathAnno,[s.name '.txt']));
     if(size(rect_anno,1)>1)
         numSeg = 20;    
         [subSeqs, subAnno] = splitSeqTRE(s,numSeg,rect_anno);
